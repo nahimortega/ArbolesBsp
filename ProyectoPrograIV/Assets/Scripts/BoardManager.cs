@@ -130,8 +130,6 @@ public class BoardManager : MonoBehaviour
             Rect lroom = left.GetRoom();
             Rect rroom = right.GetRoom();
 
-            Debug.Log("Creating corridor(s) between " + left.debugId + "(" + lroom + ") and " + right.debugId + " (" + rroom + ")");
-
             Vector2 lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range(lroom.y + 1, lroom.yMax - 1));
             Vector2 rpoint = new Vector2((int)Random.Range(rroom.x + 1, rroom.xMax - 1), (int)Random.Range(rroom.y + 1, rroom.yMax - 1));
 
@@ -195,12 +193,8 @@ public class BoardManager : MonoBehaviour
                     corridors.Add(new Rect((int)rpoint.x, (int)rpoint.y, 1, Mathf.Abs(h)));
                 }
             }
+            CreateCorridorBetween(left, right);
 
-            Debug.Log("Corridors: ");
-            foreach (Rect corridor in corridors)
-            {
-                Debug.Log("corridor: " + corridor);
-            }
         }
     }
 
@@ -260,7 +254,7 @@ public class BoardManager : MonoBehaviour
     {
         if (subDungeon.IAmLeaf())
         {
-            // if the sub-dungeon is too large
+            // Si el subdungeon es muy largo
             if (subDungeon.rect.width > maxRoomSize || subDungeon.rect.height > maxRoomSize || Random.Range(0.0f, 1.0f) > 0.25)
             {
 
