@@ -149,10 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44f24831882cbc479bb8b24528c9dbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardRows: 20
-  boardColumns: 20
-  minRoomSize: 6
-  maxRoomSize: 20
+  boardRows: 100
+  boardColumns: 100
+  minRoomSize: 1
+  maxRoomSize: 50
   floorTile: {fileID: 2599828996833247442, guid: e3a03b2a6bc85a748b415d7247e29629,
     type: 3}
 --- !u!4 &372273051
