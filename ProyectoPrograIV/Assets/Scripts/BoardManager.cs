@@ -153,8 +153,6 @@ public class BoardManager : MonoBehaviour
             int w = (int)(lpoint.x - rpoint.x);
             int h = (int)(lpoint.y - rpoint.y);
 
-            Debug.Log("lpoint: " + lpoint + ", rpoint: " + rpoint + ", w: " + w + ", h: " + h);
-
             
             if (w != 0)
             {
@@ -199,12 +197,6 @@ public class BoardManager : MonoBehaviour
                 {
                     corridors.Add(new Rect((int)rpoint.x, (int)rpoint.y, 1, Mathf.Abs(h)));
                 }
-            }
-
-            Debug.Log("Corridors: ");
-            foreach (Rect corridor in corridors)
-            {
-                Debug.Log("corridor: " + corridor);
             }
         }
 
