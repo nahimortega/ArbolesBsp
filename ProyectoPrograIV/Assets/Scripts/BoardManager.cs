@@ -39,7 +39,13 @@ public class BoardManager : MonoBehaviour
                 int roomY = (int)Random.Range(1, rect.height - roomHeight - 1);
 
                 // La room tendra posicion absoluta en el board, no relativa al sub-dungeon
+
                 room = new Rect(rect.x + roomX, rect.y + roomY, roomWidth, roomHeight);
+                
+            }
+            if(right != null && left != null)
+            {
+                CreateCorridorBetween(left, right);
             }
         }
 
@@ -95,10 +101,10 @@ public class BoardManager : MonoBehaviour
                 left = new SubDungeon(new Rect(rect.x, rect.y, split, rect.height));
                 right = new SubDungeon(new Rect(rect.x + split, rect.y, rect.width - split, rect.height));
             }
-
+            
             return true;
         }
-
+        
         public Rect GetRoom()
         {
             if (IAmLeaf())
@@ -130,10 +136,13 @@ public class BoardManager : MonoBehaviour
             Rect lroom = left.GetRoom();
             Rect rroom = right.GetRoom();
 
+            Debug.Log("Creating corridor(s) between " + left.debugId + "(" + lroom + ") and " + right.debugId + " (" + rroom + ")");
+
+            
             Vector2 lpoint = new Vector2((int)Random.Range(lroom.x + 1, lroom.xMax - 1), (int)Random.Range(lroom.y + 1, lroom.yMax - 1));
             Vector2 rpoint = new Vector2((int)Random.Range(rroom.x + 1, rroom.xMax - 1), (int)Random.Range(rroom.y + 1, rroom.yMax - 1));
 
-            //Asegurar que el punto izquierdo siempre este a la izquierda
+            
             if (lpoint.x > rpoint.x)
             {
                 Vector2 temp = lpoint;
@@ -146,16 +155,15 @@ public class BoardManager : MonoBehaviour
 
             Debug.Log("lpoint: " + lpoint + ", rpoint: " + rpoint + ", w: " + w + ", h: " + h);
 
-            //Si los puntos no estan alineados horizontalmente
+            
             if (w != 0)
             {
-                // Elige random si va horizontal, luego vertical y opuesto
+                
                 if (Random.Range(0, 1) > 2)
                 {
-                    //Añade corredor a la derecha
+                    
                     corridors.Add(new Rect(lpoint.x, lpoint.y, Mathf.Abs(w) + 1, 1));
 
-                    //Si el punto izquierdo esta debajo del derecho, lo pone arriba, de lo contrario, lo pone abajo
                     if (h < 0)
                     {
                         corridors.Add(new Rect(rpoint.x, lpoint.y, 1, Mathf.Abs(h)));
@@ -167,7 +175,7 @@ public class BoardManager : MonoBehaviour
                 }
                 else
                 {
-                    //Va arriba o abajo
+                    
                     if (h < 0)
                     {
                         corridors.Add(new Rect(lpoint.x, lpoint.y, 1, Mathf.Abs(h)));
@@ -177,13 +185,12 @@ public class BoardManager : MonoBehaviour
                         corridors.Add(new Rect(lpoint.x, rpoint.y, 1, Mathf.Abs(h)));
                     }
 
-                    //Luego va derecha
+                    
                     corridors.Add(new Rect(lpoint.x, rpoint.y, Mathf.Abs(w) + 1, 1));
                 }
             }
             else
             {
-                //Si los puntos estan horizontales, sube o baja dependiendo de posiciones
                 if (h < 0)
                 {
                     corridors.Add(new Rect((int)lpoint.x, (int)lpoint.y, 1, Mathf.Abs(h)));
@@ -193,9 +200,14 @@ public class BoardManager : MonoBehaviour
                     corridors.Add(new Rect((int)rpoint.x, (int)rpoint.y, 1, Mathf.Abs(h)));
                 }
             }
-            CreateCorridorBetween(left, right);
 
+            Debug.Log("Corridors: ");
+            foreach (Rect corridor in corridors)
+            {
+                Debug.Log("corridor: " + corridor);
+            }
         }
+
     }
 
     public void DrawRooms(SubDungeon subDungeon)

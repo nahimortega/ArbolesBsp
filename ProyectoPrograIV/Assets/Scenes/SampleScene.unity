@@ -151,9 +151,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardRows: 100
   boardColumns: 100
-  minRoomSize: 1
-  maxRoomSize: 50
-  floorTile: {fileID: 2599828996833247442, guid: e3a03b2a6bc85a748b415d7247e29629,
+  minRoomSize: 6
+  maxRoomSize: 10
+  floorTile: {fileID: 3331950206257807995, guid: fcabca84b48577b418ca36af65421703,
+    type: 3}
+  corridorTile: {fileID: 6325212131246065195, guid: 0b16f5c89dfc74746954a56629d469dc,
     type: 3}
 --- !u!4 &372273051
 Transform:
